@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/coinFragment">
+
+    <fragment
+        android:id="@+id/coinFragment"
+        android:name="com.coinranking.sample.presentation.coin.CoinFragment"
+        android:label="fragment_coin"
+        tools:layout="@layout/fragment_coin" />
+    <fragment
+        android:id="@+id/exchangeFragment"
+        android:name="com.coinranking.sample.presentation.exchange.ExchangeFragment"
+        android:label="fragment_exchange"
+        tools:layout="@layout/fragment_exchange" />
+</navigation>
