@@ -10,7 +10,6 @@ import com.coinranking.data.remote.exchange.ExchangeRemoteDataImpl
 import com.coinranking.data.remote.exchange.api.ExchangeService
 import com.coinranking.data.remote.exchange.model.ExchangeDtoMapper
 import com.coinranking.data.remote.util.CustomDispatcher
-import com.coinranking.data.remote.util.MockNetworkConfig
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -63,7 +62,7 @@ object RemoteModuleTest {
     fun provideRetrofit(okHttpClient: OkHttpClient, mockWebServer: MockWebServer): Retrofit {
         val contentType = "application/json".toMediaType()
         return Retrofit.Builder()
-            .baseUrl(mockWebServer.url(MockNetworkConfig.TEST_BASE_URL).toString())
+            .baseUrl(mockWebServer.url("/"))
             .client(okHttpClient)
             .addConverterFactory(
                 Json {

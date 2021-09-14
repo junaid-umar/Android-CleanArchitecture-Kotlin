@@ -3,4 +3,6 @@
     package="com.coinranking.data">
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <application
+        android:usesCleartextTraffic="true"/>
 </manifest>

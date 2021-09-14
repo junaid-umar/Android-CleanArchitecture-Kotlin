@@ -2,7 +2,6 @@ package com.coinranking.data.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.coinranking.data.MainCoroutineRule
-import com.coinranking.data.remote.exchange.ExchangeRemoteData
 import com.coinranking.domain.repository.ExchangeRepository
 import com.coinranking.domain.util.Result
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -11,11 +10,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Assert.*
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
+import org.junit.Assert.assertTrue
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -39,6 +35,7 @@ class ExchangeRepositoryImplTest {
 
     @Inject
     lateinit var exchangeRepository: ExchangeRepository
+    val exchangeId = "-zdvbieRdZ"
 
 
     @Before
@@ -58,7 +55,9 @@ class ExchangeRepositoryImplTest {
         val output = exchangeRepository.getExchanges().toList()
 
         assertTrue(output.get(0) is (Result.Loading))
-        assertTrue(output.get(1) is (Result.Success))
+        val result = (output[1] as Result.Success).data
+
+        Assert.assertEquals(result.get(0).exchangeId, exchangeId)
 
     }
 }

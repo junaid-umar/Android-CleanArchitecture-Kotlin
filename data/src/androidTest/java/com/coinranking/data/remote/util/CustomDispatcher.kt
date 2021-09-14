@@ -12,11 +12,11 @@ class CustomDispatcher : Dispatcher() {
                 MockResponse().setResponseCode(MockNetworkConfig.STATUS)
                     .setBody(MockResponseFileReader("exchange.json").content)
             }
-            "/v2/coins" -> {
+            "/v2/coins?timePeriod=7d&orderBy=24hVolume&limit=100&offset=1" -> {
                 MockResponse().setResponseCode(MockNetworkConfig.STATUS)
                     .setBody(MockResponseFileReader("coin.json").content)
             }
-            "/v2/coin" -> {
+            "/v2/coin/Qwsogvtv82FCd?timePeriod=7d" -> {
                 MockResponse().setResponseCode(MockNetworkConfig.STATUS)
                     .setBody(MockResponseFileReader("coindetail.json").content)
             }

@@ -9,11 +9,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
+import org.junit.*
 import org.junit.Assert.assertTrue
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -30,6 +27,7 @@ class ExchangeRemoteDataImplTest {
     @get:Rule(order = 1)
     val coroutineTestRule = MainCoroutineRule()
 
+    val exchangeId = "-zdvbieRdZ"
 
     @Inject
     lateinit var mockServer: MockWebServer
@@ -56,7 +54,9 @@ class ExchangeRemoteDataImplTest {
         val output = exchangeRemoteData.getExchanges().toList()
 
         assertTrue(output.get(0) is (Result.Loading))
-        assertTrue(output.get(1) is (Result.Success))
+        val result = (output[1] as Result.Success).data
+
+        Assert.assertEquals(result.get(0).exchangeId, exchangeId)
 
     }
 }

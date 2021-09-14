@@ -12,7 +12,8 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -33,6 +34,7 @@ class CoinRemoteDataImplTest {
     @Inject
     lateinit var coinRemoteData: CoinRemoteData
 
+    private val coinId = "Qwsogvtv82FCd"
 
     @Before
     fun setUp() {
@@ -52,17 +54,21 @@ class CoinRemoteDataImplTest {
         )).toList()
 
         assertTrue(output.get(0) is (Result.Loading))
-       assertTrue(output.get(1) is (Result.Error))
+        val result = (output[1] as Result.Success).data
+
+        assertEquals(result.get(0).uuid, coinId)
     }
+
     @Test
     fun getCoinsDetailsSuccess() = runBlocking {
 
         val output = coinRemoteData.getCoinDetails(GetCoinDetailsParams(
-            "Qwsogvtv82FCd", TimeFilter.Days7
+            coinId, TimeFilter.Days7
         )).toList()
 
         assertTrue(output.get(0) is (Result.Loading))
-        assertTrue(output.get(1) is (Result.Success))
+        val result = (output[1] as Result.Success).data
+        assertEquals(result.coinId, coinId)
     }
 
     @Test
